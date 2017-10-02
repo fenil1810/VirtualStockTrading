@@ -1,0 +1,53 @@
+﻿@model VirtualStockTrading.StockData
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+	<h4>StockData</h4>
+	<hr />
+	<dl class="dl-horizontal">
+
+		<dt>
+			@Html.DisplayNameFor(model => model.StockName)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.StockName)
+		</dd>
+
+
+		<dt>
+			@Html.DisplayNameFor(model => model.StockType)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.StockType)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.MarketPrice)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.MarketPrice)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.TotalVolume)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.MarketPrice)
+		</dd>
+
+
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Back to List", "Index")
+</p>

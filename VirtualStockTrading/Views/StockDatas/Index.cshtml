@@ -1,0 +1,45 @@
+﻿@model IEnumerable<VirtualStockTrading.StockData>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Index</h2>
+
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.StockName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.StockType)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.MarketPrice)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.TotalVolume)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.StockName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.StockType)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.MarketPrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TotalVolume)
+			</td>
+		</tr>
+	}
+
+</table>
