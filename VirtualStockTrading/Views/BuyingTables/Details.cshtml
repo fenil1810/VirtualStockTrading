@@ -1,0 +1,67 @@
+﻿@model VirtualStockTrading.BuyingTable
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BuyingTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StockData.StockType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockData.StockType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserInformation.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserInformation.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BidPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BidPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BidId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

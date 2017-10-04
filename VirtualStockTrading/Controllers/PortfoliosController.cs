@@ -14,20 +14,17 @@ namespace VirtualStockTrading.MVC_Controllers
     public class PortfoliosController : Controller
     {
         private Model1 db = new Model1();
-        
+        public ActionResult Sell(int? id)
+        {
+            //return View();
+            return RedirectToAction("Sell", "SellingTables", new { id = id });
+        }
         // GET: Portfolios/Details/5
         public ActionResult Details()
         {
             try
             {
-                /*if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }*/
                 string s = User.Identity.Name;
-
-
-
                 var context = new IdentityDbContext();
                 var uid = context.Users.FirstOrDefault(x => x.Email == s);
                 string id = uid.Id;

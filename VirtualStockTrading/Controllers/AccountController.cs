@@ -21,7 +21,11 @@ namespace VirtualStockTrading.Controllers
         public AccountController()
         {
         }
-
+        // GET: /Account/AddPhoneNumber
+        public ActionResult AddPhoneNumber()
+        {
+            return View();
+        }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -90,18 +94,24 @@ namespace VirtualStockTrading.Controllers
                     return View(model);
             }
         }
-
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        public async Task<ActionResult> VerifyCode(string provider,
+                                                   string returnUrl,
+                                                   bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new VerifyCodeViewModel
+            {
+                Provider = provider,
+                ReturnUrl = returnUrl,
+                RememberMe = rememberMe
+            });
         }
 
         //
@@ -116,11 +126,16 @@ namespace VirtualStockTrading.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
+            // The following code protects for brute force attacks against the two factor codes.
+            // If a user enters incorrect codes for a specified amount of time then the user account
+            // will be locked out for a specified amount of time.
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(
+                model.Provider,
+                model.Code,
+                isPersistent: model.RememberMe,
+                rememberBrowser: model.RememberBrowser);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -133,7 +148,7 @@ namespace VirtualStockTrading.Controllers
                     return View(model);
             }
         }
-
+       
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -296,7 +311,6 @@ namespace VirtualStockTrading.Controllers
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-
         //
         // POST: /Account/SendCode
         [HttpPost]
@@ -314,9 +328,15 @@ namespace VirtualStockTrading.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode",
+                                    new
+                                    {
+                                        Provider = model.SelectedProvider,
+                                        ReturnUrl = model.ReturnUrl,
+                                        RememberMe = model.RememberMe
+                                    });
         }
-
+        
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]

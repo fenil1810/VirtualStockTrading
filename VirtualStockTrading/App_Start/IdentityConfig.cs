@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using VirtualStockTrading.Models;
+using Twilio.Clients;
+using System.Diagnostics;
+using VirtualStockTrading.Twilio;
 
 namespace VirtualStockTrading
 {
@@ -25,11 +28,34 @@ namespace VirtualStockTrading
 
     public class SmsService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        /*public Task SendAsync(IdentityMessage message)
         {
             // Plug in your SMS service here to send a text message.
+            var soapSms = new VirtualStockTrading.ASPSMSX2.ASPSMSX2SoapClient("ASPSMSX2Soap");
+            soapSms.SendSimpleTextSMS(
+                System.Configuration.ConfigurationManager.AppSettings["ASPSMSUSERKEY"],
+                System.Configuration.ConfigurationManager.AppSettings["ASPSMSPASSWORD"],
+                message.Destination,
+                System.Configuration.ConfigurationManager.AppSettings["ASPSMSORIGINATOR"],
+                message.Body);
+            soapSms.Close();
             return Task.FromResult(0);
-        }
+        }*/
+         private readonly ITwilioMessageSender _messageSender;
+
+         public SmsService() : this(new TwilioMessageSender()) { }
+
+         public SmsService(ITwilioMessageSender messageSender)
+         {
+             _messageSender = messageSender;
+         }
+
+         public async Task SendAsync(IdentityMessage message)
+         {
+             await _messageSender.SendMessageAsync(message.Destination,
+                                                   Config.TwilioNumber,
+                                                   message.Body);
+         }
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.

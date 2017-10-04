@@ -1,0 +1,58 @@
+﻿@model IEnumerable<VirtualStockTrading.SellingTable>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StockData.StockType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserInformation.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AskPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockData.StockType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserInformation.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AskPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AskId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AskId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AskId })
+        </td>
+    </tr>
+}
+
+</table>

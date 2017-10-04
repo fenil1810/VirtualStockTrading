@@ -1,0 +1,97 @@
+﻿@model VirtualStockTrading.BuyingTable
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+	bool IsShow = true;
+}
+
+
+<h2>Create</h2>
+@if (ViewBag.Message != null)
+{
+	<script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+	</script>
+}
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<h4>BuyingTable</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.StockName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownList("StockName", (IEnumerable<SelectListItem>)ViewBag.StockDatas, new { @id = "StockName" })
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+
+
+		@{ var boolValue = true; }
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.PriceType, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				MarketPrice: @Html.RadioButtonFor(model => model.PriceType, "MarketPrice")
+			
+				Your Price: @Html.RadioButtonFor(model => model.PriceType, "YourPrice", new { @checked = true, onclick = "GetSelectedItem(this);" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.BidPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div id="BidPrice" class="col-md-10">
+				@if (boolValue)
+                {
+					@Html.EditorFor(model => model.BidPrice, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.BidPrice, "", new { @class = "text-danger" })
+                }
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	function GetSelectedItem(s) {
+		//document.getElementById("boolValue").value = true;
+		document.getElementById("#BidPrice").style.display = "none";
+		alert("test");
+	}
+</script>
+
+}
