@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,7 +14,10 @@ namespace VirtualStockTrading.Controllers
     public class SellingTablesController : Controller
     {
         private Model1 db = new Model1();
+
         String stockname;
+        //int shareQuantity;
+        int? a;
         // GET: SellingTables
         public ActionResult Index()
         {
@@ -39,11 +43,17 @@ namespace VirtualStockTrading.Controllers
         public ActionResult Sell(int? id)
         {
             Portfolio portfolio = db.Portfolios.Find(id);
+            //shareQuantity = portfolio.ShareQuantity;
+            TempData["data"] = id;
+            SellingTable sellingTable = new SellingTable();
             //return RedirectToAction("Details", "Portfolios", new { id = 1 });
+            stockname = portfolio.StockName;
+            sellingTable.StockName = portfolio.StockName;
+            //TempData["data"] = stockname;
 
-            var stockname = portfolio.StockName;
-            ViewBag.Message = stockname;
-            return View();
+
+            //ViewBag.Message = stockname;
+            return View(sellingTable);
         }
 
         // POST: SellingTables/Create
@@ -53,9 +63,24 @@ namespace VirtualStockTrading.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Sell([Bind(Include = "AskId,AskPrice,TimeStamp,Quantity,StockName,UserId")] SellingTable sellingTable)
         {
+            //int a = shareQuantity;
+            //int b = sellingTable.Quantity;
             if (ModelState.IsValid)
             {
-                sellingTable.StockName = stockname;
+                int a = (int)TempData["data"];
+                string user = User.Identity.Name;
+                var context = new IdentityDbContext();
+                var uid = context.Users.FirstOrDefault(x => x.UserName == user);
+                //int id = db.Portfolios.Where(x => x.StockName == sellingTable.StockName && x.UserId == uid.Id);
+                Portfolio portfolio = db.Portfolios.Find(a);
+                int c = portfolio.ShareQuantity;
+                //StockData stockdata = db.StockDatas.Find(StockName);
+                if (sellingTable.Quantity > portfolio.ShareQuantity)
+                {
+                    ViewBag.Message = "You donot have the required Quantity" + "  Available Shares =" + portfolio.ShareQuantity;
+                    return View();
+                }
+
                 db.SellingTables.Add(sellingTable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -63,71 +88,6 @@ namespace VirtualStockTrading.Controllers
 
             return View(sellingTable);
         }
-
-        // GET: SellingTables/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SellingTable sellingTable = db.SellingTables.Find(id);
-            if (sellingTable == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sellingTable);
-        }
-
-        // POST: SellingTables/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AskId,AskPrice,TimeStamp,Quantity,StockName,UserId")] SellingTable sellingTable)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sellingTable).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(sellingTable);
-        }
-
-        // GET: SellingTables/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SellingTable sellingTable = db.SellingTables.Find(id);
-            if (sellingTable == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sellingTable);
-        }
-
-        // POST: SellingTables/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            SellingTable sellingTable = db.SellingTables.Find(id);
-            db.SellingTables.Remove(sellingTable);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        
     }
 }
