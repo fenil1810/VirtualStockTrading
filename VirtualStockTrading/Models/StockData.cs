@@ -22,13 +22,11 @@ namespace VirtualStockTrading
         [StringLength(50)]
         public string StockName { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string StockType { get; set; }
+        [Column(TypeName = "numeric")]
+        public decimal MarketPrice { get; set; }
 
-        public int MarketPrice { get; set; }
-
-        public long TotalVolume { get; set; }
+        [Column(TypeName = "numeric")]
+        public decimal TotalVolume { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuyingTable> BuyingTables { get; set; }

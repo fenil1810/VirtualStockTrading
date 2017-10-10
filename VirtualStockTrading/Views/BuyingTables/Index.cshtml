@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Buying Requests</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,22 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StockData.StockType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserInformation.FirstName)
+            @Html.DisplayNameFor(model => model.StockData.StockName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BidPrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PriceType)
         </th>
         <th></th>
     </tr>
@@ -36,28 +27,15 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.StockData.StockType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserInformation.FirstName)
+            @Html.DisplayFor(modelItem => item.StockData.StockName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.BidPrice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriceType)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BidId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BidId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BidId })
-        </td>
+        
     </tr>
 }
 

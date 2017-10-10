@@ -39,15 +39,7 @@ namespace VirtualStockTrading
                 .IsFixedLength();
 
             modelBuilder.Entity<BuyingTable>()
-                .Property(e => e.StockName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BuyingTable>()
                 .Property(e => e.PriceType)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<OrderTable>()
-                .Property(e => e.StockName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<OrderTable>()
@@ -66,17 +58,13 @@ namespace VirtualStockTrading
                 .Property(e => e.TimeStamp)
                 .IsFixedLength();
 
-            modelBuilder.Entity<SellingTable>()
-                .Property(e => e.StockName)
-                .IsUnicode(false);
+            modelBuilder.Entity<StockData>()
+                .Property(e => e.MarketPrice)
+                .HasPrecision(14, 4);
 
             modelBuilder.Entity<StockData>()
-                .Property(e => e.StockName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<StockData>()
-                .Property(e => e.StockType)
-                .IsUnicode(false);
+                .Property(e => e.TotalVolume)
+                .HasPrecision(14, 4);
 
             modelBuilder.Entity<StockData>()
                 .HasMany(e => e.BuyingTables)
@@ -97,10 +85,6 @@ namespace VirtualStockTrading
                 .HasMany(e => e.StockPrices)
                 .WithRequired(e => e.StockData)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<StockPrice>()
-                .Property(e => e.StockName)
-                .IsUnicode(false);
 
             modelBuilder.Entity<UserInformation>()
                 .Property(e => e.FirstName)

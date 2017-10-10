@@ -17,7 +17,7 @@ namespace VirtualStockTrading.MVC_Controllers
         // GET: StockDatas
         public ActionResult Index()
         {
-            return View(db.StockDatas.ToList());
+            return View(db.StockDatas.ToList().Where(x=>x.MarketPrice>100));
         }
 
         // GET: StockDatas/Details/5

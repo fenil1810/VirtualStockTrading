@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VirtualStockTrading;
+using VirtualStockTrading.Models;
 
 namespace VirtualStockTrading.MVC_Controllers
 {
+    [CustomAuthorize]
     public class UserInformationsController : Controller
     {
         private Model1 db = new Model1();

@@ -280,10 +280,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BuyingTablesController.cs" />
-    <Compile Include="Controllers\SellingTablesController.cs" />
     <Compile Include="Models\AdminLogin.cs" />
     <Compile Include="Models\BuyingTable.cs" />
+    <Compile Include="Controllers\BuyingTablesController.cs" />
+    <Compile Include="Controllers\SellingTablesController.cs" />
     <Compile Include="Controllers\PortfoliosController.cs" />
     <Compile Include="Controllers\StockDatasController.cs" />
     <Compile Include="Controllers\UserInformationsController.cs" />
@@ -301,6 +301,7 @@
     </Compile>
     <Compile Include="Model1.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomAuthorize.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderTable.cs" />
@@ -316,11 +317,11 @@
     <Compile Include="Models\StockData.cs" />
     <Compile Include="Models\StockPrice.cs" />
     <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Twilio\Config.cs" />
+    <Compile Include="Twilio\TwilioMessageSender.cs" />
     <Compile Include="Models\UserInformation.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\Valuation.cs" />
-    <Compile Include="Twilio\Config.cs" />
-    <Compile Include="Twilio\TwilioMessageSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -395,9 +396,6 @@
     <Content Include="Views\UserInformations\Edit.cshtml" />
     <Content Include="Views\UserInformations\Index.cshtml" />
     <Content Include="Views\BuyingTables\Create.cshtml" />
-    <Content Include="Views\BuyingTables\Delete.cshtml" />
-    <Content Include="Views\BuyingTables\Details.cshtml" />
-    <Content Include="Views\BuyingTables\Edit.cshtml" />
     <Content Include="Views\BuyingTables\Index.cshtml" />
     <Content Include="Views\SellingTables\Sell.cshtml" />
     <Content Include="Views\SellingTables\Delete.cshtml" />
